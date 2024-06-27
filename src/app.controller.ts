@@ -1,6 +1,7 @@
-import { Controller, Get, Query, Render, Post, Body, Redirect } from '@nestjs/common';
+import { Controller, Get, Query, Render, Post, Body, Redirect, Res, HttpStatus } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Extable } from './entity';
+import { Response } from 'express';
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
@@ -8,7 +9,7 @@ export class AppController {
   @Get('/')
   @Render('home')
   root() {
-    return this.appService.getHello();
+    return ;
   }
 
   @Get('/init')
@@ -55,10 +56,17 @@ export class AppController {
   getAll(): Promise<Extable[]> {
     return this.appService.findAll();
   }
-  // @Get()
-  // getAll(): Promise<Extable[]> {
-  //   return this.appService.findAll();
-  // }
+  @Get('join')
+  @Render('join') // 'join' 템플릿 파일을 렌더링
+  getJoinPage() {
+    return {};
+  }
+
+  @Get('log')
+  @Render('login') // 'login' 템플릿 파일을 렌더링
+  getLoginPage() {
+    return {};
+  }
 
 
   @Post('/signup')
@@ -66,13 +74,18 @@ export class AppController {
     return this.appService.create(data);
   }
   @Post('/login')
-  async login(@Body() userData: Partial<Extable>): Promise<void> {
-    const result = await this.appService.login(userData.userid, userData.password);
-    if (result) {
-      // 로그인 성공 시, '/' 경로로 리다이렉트
-      Redirect('/home');
-    } else {
-      throw new Error('Login failed');
+  async login(@Body() data: Partial<Extable>, @Res() res: Response): Promise<void> {
+    try {
+      const result = await this.appService.login(data.userid, data.password);
+      if (result) {
+        res.status(HttpStatus.OK).send({ message: 'Login successful' })
+        res.redirect('/');
+      } else {
+        res.status(HttpStatus.UNAUTHORIZED).send({ message: 'Login failed' });
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ message: 'Failed to login' });
     }
   }
 }

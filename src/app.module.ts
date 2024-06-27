@@ -15,7 +15,8 @@ import { AppService } from './app.service';
     entities: [Extable],
     synchronize: true, // 개발 환경에서만 true로 설정, 프로덕션에서는 false로 설정
   }),
-  TypeOrmModule.forFeature([Extable]),],
+  TypeOrmModule.forFeature([Extable]),
+],
   controllers: [AppController],
   providers: [AppService],
 })

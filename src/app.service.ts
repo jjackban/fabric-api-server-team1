@@ -15,7 +15,7 @@ export class AppService {
     return this.ExtableRepository.find();
   }
 
-  create(data: Partial<Extable>): Promise<Extable> {
+  async create(data: Partial<Extable>): Promise<Extable> {
     const entity = this.ExtableRepository.create(data);
     return this.ExtableRepository.save(entity);
   }

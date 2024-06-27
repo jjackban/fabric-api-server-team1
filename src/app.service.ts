@@ -1,8 +1,28 @@
 import { Injectable } from '@nestjs/common';
 import { send } from './util/connectFabic';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Extable } from './entity';
 
 @Injectable()
 export class AppService {
+  constructor(
+    @InjectRepository(Extable)
+    private ExtableRepository: Repository<Extable>,
+  ) {}
+
+  findAll(): Promise<Extable[]> {
+    return this.ExtableRepository.find();
+  }
+
+  create(data: Partial<Extable>): Promise<Extable> {
+    const entity = this.ExtableRepository.create(data);
+    return this.ExtableRepository.save(entity);
+  }
+  async login(userid: string, password: string): Promise<boolean> {
+    const user = await this.ExtableRepository.findOne({ where: { userid, password } });
+    return !!user; // 유저가 존재하면 true, 아니면 false 반환
+  }
   getHello() {
     return { message: 'Hello World!' };
   }

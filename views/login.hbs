@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Page</title>
+</head>
+<body>
+  <h1>Login Page</h1>
+  <form id="loginForm" method="post">
+    <div>
+      <label for="userid">UserID:</label>
+      <input type="text" id="userid" name="userid" required>
+    </div>
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+    </div>
+    <button type="submit">Login</button>
+  </form>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const loginForm = document.getElementById('loginForm');
+
+      loginForm.addEventListener('submit', async function(event) {
+        event.preventDefault();
+        
+        const formData = new FormData(loginForm);
+        const userData = {
+          userid: formData.get('userid'),
+          password: formData.get('password')
+        };
+
+        try {
+          const response = await fetch('http://localhost:3000/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userData),
+          });
+
+          if (!response.ok) {
+            throw new Error('Failed to login');
+          }
+
+          const data = await response.json();
+          console.log('Login successful:', data);
+          alert('Login successful!');
+          loginForm.reset(); // 폼 초기화
+        } catch (error) {
+          console.error('Error:', error);
+          alert('Failed to login');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

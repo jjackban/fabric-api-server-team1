@@ -11,6 +11,8 @@ export class AppController {
     return this.appService.getHello();
   }
 
+  
+  
   @Get('/init')
   async init(
     @Query('user') user: string,
@@ -61,6 +63,14 @@ async purchaseBook(
   @Query('bookID') bookID: string,
 ): Promise<string> {
   return this.appService.purchaseBook(userID, bookID);
+}
+
+@Get('/chargeMoney')
+async chargeMoney(
+  @Query('userID') userID: string,
+  @Query('amount') amount: string,
+): Promise<string> {
+  return this.appService.chargeMoney(userID, amount);
 }
 
 }

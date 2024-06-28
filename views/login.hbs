@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-form">
+      <h2>로그인</h2>
+      <input type="text" id="username" class = "user" placeholder="사용자명 또는 이메일">
+      <input type="password" id="password" class = "pass" placeholder="비밀번호">
+      <button onclick="login()">로그인</button>
+      <a href="#">비밀번호를 잊으셨나요?</a>
+      <div class="social-login">
+        <button class="google-login">구글로 로그인</button><br><br>
+        <button class="facebook-login">페이스북으로 로그인</button>
+      </div>
+      <a href="./signup.html">회원가입</a>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

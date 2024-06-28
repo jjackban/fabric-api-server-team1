@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { send } from './util/connectFabic';
+import { send } from './util/connectFabric';
 
 @Injectable()
 export class AppService {
@@ -58,5 +58,11 @@ export class AppService {
     const args = [userID, bookID];
     console.log(`purchaseBook Args: ${args}`);
     return await send(false, 'purchaseBook', args);
+  }
+
+  async chargeMoney(userID: string, amount: string) {
+    const args = [userID, amount];
+    console.log(`chargeMoney Args: ${args}`);
+    return await send(false, 'chargeMoney', args);
   }
 }

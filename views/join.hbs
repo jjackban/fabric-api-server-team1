@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입</title>
+  <link rel="stylesheet" href="signup.css">
+</head>
+<body>
+  <div class="signup-container">
+    <div class="signup-form">
+      <h2>회원가입</h2>
+        <form id="signupForm" method="post">
+          <input type="text" id="username" name='userid' placeholder="사용자명" required>
+          <input type="password" id="password" name="password" placeholder="비밀번호" required>
+          <button type="submit">가입하기</button>
+        </form>
+      <a href="/log">이미 회원이신가요?</a>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const signupForm = document.getElementById('signupForm');
+
+      signupForm.addEventListener('submit', async function(event) {
+        event.preventDefault();
+        
+        const formData = new FormData(signupForm);
+        const userData = {
+          userid: formData.get('userid'),
+          password: formData.get('password')
+        };
+
+        try {
+          const response = await fetch('http://localhost:3000/signup', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userData),
+          });
+
+          if (!response.ok) {
+            throw new Error('Failed to sign up');
+          }
+
+          const data = await response.json();
+          console.log('User created:', data);
+          alert('User created successfully!');
+          signupForm.reset(); // 폼 초기화
+        } catch (error) {
+          console.error('Error:', error);
+          alert('Failed to sign up');
+        }
+      });
+    });
+
+  </script>
+</body>
+</html>
+    

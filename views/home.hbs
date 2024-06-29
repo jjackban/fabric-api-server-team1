@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>도서책 판매 사이트</title>
+        <link rel="stylesheet" href="index.css" />
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const cartItems = document.getElementById('cart-items');
+            const pointModal = document.getElementById('pointModal');
+            const cashModal = document.getElementById('cashModal');
+            const sendPointLink = document.getElementById('sendPoint');
+            const sendCashLink = document.getElementById('sendCash');
+            const pointForm = document.getElementById('pointForm');
+            const cashForm = document.getElementById('cashForm');
+
+            document.querySelectorAll('.book-item').forEach(function (bookItem) {
+                bookItem.querySelector('.actions button[type="cart"]').addEventListener('click', function () {
+                    const title = bookItem.querySelector('figcaption').textContent;
+                    const price = bookItem.querySelector('.price').textContent;
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `${title} - ${price} <button class="remove-item">-</button>`;
+                    cartItems.appendChild(listItem);
+
+                    listItem.querySelector('.remove-item').addEventListener('click', function () {
+                        cartItems.removeChild(listItem);
+                    });
+                });
+            });
+            // 포인트 보내기 링크 클릭 시 모달 열기
+    sendPointLink.addEventListener('click', function(event) {
+        event.preventDefault();
+        pointModal.style.display = 'block';
+    });
+
+    // 캐시 보내기 링크 클릭 시 모달 열기
+    sendCashLink.addEventListener('click', function(event) {
+        event.preventDefault();
+        cashModal.style.display = 'block';
+    });
+
+    // 모달 닫기 버튼 클릭 시 모달 닫기
+    const closeButtons = document.querySelectorAll('.close');
+    closeButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            pointModal.style.display = 'none';
+            cashModal.style.display = 'none';
+        });
+    });
+
+    // 포인트 보내기 폼 제출 시
+    pointForm.addEventListener('submit', async function(event) {
+        event.preventDefault();
+        const formData = new FormData(pointForm);
+        const receiver = formData.get('receiver');
+
+        try {
+            const response = await fetch('/sendPoint', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ receiver })
+            });
+
+            if (response.ok) {
+                alert('포인트를 성공적으로 보냈습니다.');
+                pointModal.style.display = 'none';
+            } else {
+                alert('포인트 보내기 실패');
+            }
+        } catch (error) {
+            console.error('포인트 보내기 오류:', error);
+            alert('포인트 보내기 중 오류가 발생했습니다.');
+        }
+        // 캐시 보내기 폼 제출 시
+            cashForm.addEventListener('submit', async function(event) {
+                event.preventDefault();
+                const formData = new FormData(cashForm);
+                const receiver = formData.get('receiver');
+
+                try {
+                    const response = await fetch('/sendCash', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ receiver })
+                    });
+
+                    if (response.ok) {
+                        alert('캐시를 성공적으로 보냈습니다.');
+                        cashModal.style.display = 'none';
+                    } else {
+                        alert('캐시 보내기 실패');
+                    }
+                } catch (error) {
+                    console.error('캐시 보내기 오류:', error);
+                    alert('캐시 보내기 중 오류가 발생했습니다.');
+                }
+            });
+        });
+    });
+    </script>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="logo">
+            <a href="#">뷰리 서점</a>
+        </div>
+        <div class="search-container">
+            <input type="text" placeholder="검색어를 입력하세요.">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+        <div class="auth-buttons">
+            <a href="/log">로그인</a>
+            <a href="/join">회원가입</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="book-item">
+            <img src="./book1.png" alt="불변의 법칙">
+            <div class="book-info">
+                <figcaption>불변의 법칙</figcaption>
+                <div class="price">22500원</div>
+                <div class="points">적립 포인트: 1125P</div>
+                <div class="actions">
+                    <button type="buy">구입</button>
+                    <button type="cart">담기</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="book-item">
+            <img src="./book2.png" alt="리틀 라이프 1">
+            <div class="book-info">
+                <figcaption>리틀 라이프 1</figcaption>
+                <div class="price">13000원</div>
+                <div class="points">적립 포인트: 650P</div>
+                <div class="actions">
+                    <button type="buy">구입</button>
+                    <button type="cart">담기</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="book-item">
+            <img src="./book3.png" alt="허송세월">
+            <div class="book-info">
+                <figcaption>허송세월</figcaption>
+                <div class="price">16000원</div>
+                <div class="points">적립 포인트: 800P</div>
+                <div class="actions">
+                    <button type="buy">구입</button>
+                    <button type="cart">담기</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="book-item">
+            <img src="./book4.png" alt="모순">
+            <div class="book-info">
+                <figcaption>모순</figcaption>
+                <div class="price">12000원</div>
+                <div class="points">적립 포인트: 600P</div>
+                <div class="actions">
+                    <button type="buy">구입</button>
+                    <button type="cart">담기</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="book-item">
+            <img src="./book5.png" alt="하루 한 장 나의 어휘력을 위한 필사 노트">
+            <div class="book-info">
+                <figcaption>하루 한 장 나의 어휘력을 위한 필사 노트</figcaption>
+                <div class="price">21000원</div>
+                <div class="points">적립 포인트: 1050P</div>
+                <div class="actions">
+                    <button type="buy">구입</button>
+                    <button type="cart">담기</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="book-item">
+            <img src="./book6.png" alt="돈의 심리학">
+            <div class="book-info">
+                <figcaption>돈의 심리학</figcaption>
+                <div class="price">18000원</div>
+                <div class="points">적립 포인트: 900P</div>
+                <div class="actions">
+                    <button type="buy">구입</button>
+                    <button type="cart">담기</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="book-item">
+            <img src="./book7.png" alt="아이가 없는 집">
+            <div class="book-info">
+                <figcaption>아이가 없는 집</figcaption>
+                <div class="price">16000원</div>
+                <div class="points">적립 포인트: 800P</div>
+                <div class="actions">
+                    <button type="buy">구입</button>
+                    <button type="cart">담기</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="book-item">
+            <img src="./book8.png" alt="마흔에 읽는 쇼펜하우어">
+            <div class="book-info">
+                <figcaption>마흔에 읽는 쇼펜하우어</figcaption>
+                <div class="price">15000원</div>
+                <div class="points">적립 포인트: 750P</div>
+                <div class="actions">
+                    <button type="buy">구입</button>
+                    <button type="cart">담기</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="book-item">
+            <img src="./book9.png" alt="나를 사랑하는 것이 먼저다">
+            <div class="book-info">
+                <figcaption>나를 사랑하는 것이 먼저다.</figcaption>
+                <div class="price">16000원</div>
+                <div class="points">적립 포인트: 800P</div>
+                <div class="actions">
+                    <button type="buy">구입</button>
+                    <button type="cart">담기</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="book-item">
+            <img src="./book10.png" alt="우리는 날마다 조금씩 행복해진다">
+            <div class="book-info">
+                <figcaption>우리는 날마다 조금씩 행복해진다.</figcaption>
+                <div class="price">15000원</div>
+                <div class="points">적립 포인트: 750P</div>
+                <div class="actions">
+                    <button type="buy">구입</button>
+                    <button type="cart">담기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-fixed sidebar-1">
+        {{#if userid}}
+        <h2>{{userid}} 님 환영합니다.</h2>
+        <ul>
+            <li>잔여 캐시 : </li>
+            <li>잔여 포인트 : </li>
+            <h2><a href="#" id="sendPoint">포인트 보내기</a></h2>
+            <h2><a href="#" id="sendCash">캐시 보내기</a></h2>
+        </ul>
+        {{else}}
+        <h3>로그인 해주세요</h3>
+        {{/if}}
+    </div>
+{{!--  포인트 보내기  --}}
+    <div id="pointModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>포인트 보내기</h2>
+            <form id="pointForm">
+                <label for="receiver">받는 사람:</label>
+                <input type="text" id="receiver" name="receiver" required>
+                <button type="submit">보내기</button>
+            </form>
+        </div>
+    </div>
+{{!-- 캐시 보내기 --}}
+    <div id="cashModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>캐시 보내기</h2>
+            <form id="cashForm">
+                <label for="receiver">받는 사람:</label>
+                <input type="text" id="receiver" name="receiver" required>
+                <button type="submit">보내기</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="sidebar-fixed sidebar-2">
+        <div class="cart-items">
+            <h3>캐시 충전</h3>
+            <button type="buy">충전</button>
+        </div>
+    </div>
+    <div class="sidebar-fixed sidebar-3">
+        <div class="cart-items">
+            <h3>장바구니</h3>
+            <ul id="cart-items">
+            </ul>
+            <button type="buy">구입</button>
+        </div>
+    </div>
+    <footer>
+        <div>
+            <h3>고객센터</h3>
+            <p>전화: 1544-1900</p>
+            <p>운영시간: 평일 09:00 - 18:00</p>
+        </div>
+        <div>
+            <h3>회사 정보</h3>
+            <ul>
+                <li><a href="#">회사소개</a></li>
+                <li><a href="#">이용약관</a></li>
+                <li><a href="#">개인정보처리방침</a></li>
+            </ul>
+        </div>
+        <div>
+            <h3>SNS</h3>
+            <ul>
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Instagram</a></li>
+                <li><a href="#">Twitter</a></li>
+            </ul>
+        </div>
+        <p>&copy; 2024 뷰리서점. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

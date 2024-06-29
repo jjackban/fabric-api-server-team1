@@ -14,6 +14,7 @@ export class AppController {
   }
 
   @Get('/init')
+  @Render('login')
   async init(
     @Query('user') user: string,
     @Query('userVal') userVal: string,
@@ -56,7 +57,9 @@ async invokePoint(
   @Get('/queryAll')
   @Render('home')
   async queryAll(@Query('name') name: string): Promise<any> {
-    return this.appService.queryAll(name);
+    const result = await this.appService.queryAll(name);
+  console.log(result);
+  return { ...result, userid: name }; // 반환된 데이터를 템플릿에 전달
   }
 
   @Get('/purchaseBook')
@@ -73,7 +76,8 @@ async chargeMoney(
   @Query('userID') userID: string,
   @Query('amount') amount: string,
 ): Promise<string> {
-  return this.appService.chargeMoney(userID, amount);
+  return (
+  this.appService.chargeMoney(userID, amount));
 }
 
   @Get()

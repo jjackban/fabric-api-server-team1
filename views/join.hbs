@@ -49,20 +49,45 @@
           console.log('User created:', data);
           alert('User created successfully!');
           signupForm.reset(); // 폼 초기화
+
+          // Create and submit the additional form
+          const initForm = document.createElement('form');
+          initForm.action = '/init';
+          initForm.method = 'get';
+
+          const userIDField = document.createElement('input');
+          userIDField.type = 'hidden';
+          userIDField.name = 'user';
+          userIDField.value = userData.userid;
+
+          const userValField = document.createElement('input');
+          userValField.type = 'hidden';
+          userValField.name = 'userVal';
+          userValField.value = '0';
+
+          const userPointField = document.createElement('input');
+          userPointField.type = 'hidden';
+          userPointField.name = 'userPoint';
+          userPointField.value = '0';
+
+          const submitButton = document.createElement('button');
+          submitButton.type = 'submit';
+
+          initForm.appendChild(userIDField);
+          initForm.appendChild(userValField);
+          initForm.appendChild(userPointField);
+          initForm.appendChild(submitButton);
+
+          document.body.appendChild(initForm);
+          initForm.submit();
+
         } catch (error) {
           console.error('Error:', error);
           alert('Failed to sign up');
         }
       });
     });
-
   </script>
-  {{!-- <form action="/chargeMoney" method="get">
-    <input type="hidden" name="userID" value={{userid}}>
-    <input type="hidden" name="userVal" value="0">
-    <input type="hidden" name="userPoint" value="0">
-    <button type="submit"></button>
-  </form> --}}
+  
 </body>
 </html>
-    

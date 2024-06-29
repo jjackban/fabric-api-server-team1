@@ -2,21 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Signup Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입</title>
+  <link rel="stylesheet" href="signup.css">
 </head>
 <body>
-  <h1>Signup Page</h1>
-  <form id="signupForm" method="post">
-    <div>
-      <label for="userid">UserID:</label>
-      <input type="text" id="userid" name="userid" required>
+  <div class="signup-container">
+    <div class="signup-form">
+      <h2>회원가입</h2>
+        <form id="signupForm" method="post">
+          <input type="text" id="username" name='userid' placeholder="사용자명" required>
+          <input type="password" id="password" name="password" placeholder="비밀번호" required>
+          <button type="submit">가입하기</button>
+        </form>
+      <a href="/log">이미 회원이신가요?</a>
     </div>
-    <div>
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required>
-    </div>
-    <button type="submit">Sign Up</button>
-  </form>
+  </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -54,6 +55,8 @@
         }
       });
     });
+
   </script>
 </body>
 </html>
+    

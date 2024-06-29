@@ -2,21 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Login Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="login.css">
 </head>
 <body>
-  <h1>Login Page</h1>
-  <form id="loginForm" method="post">
-    <div>
-      <label for="userid">UserID:</label>
-      <input type="text" id="userid" name="userid" required>
+  <div class="login-container">
+    <div class="login-form">
+      <form id="loginForm" method="post">
+        <h2>로그인</h2>
+          <input type="text" id="username" name='userid' class = "user" placeholder="사용자명 또는 이메일" required>
+          <input type="password" id="password" name='password' class = "pass" placeholder="비밀번호" required>
+        <button type="submit">로그인</button>
+      </form>
+      <a href="#">비밀번호를 잊으셨나요?</a>
+      <div class="social-login">
+        <button class="google-login">구글로 로그인</button><br><br>
+        <button class="facebook-login">페이스북으로 로그인</button>
+      </div>
+      <a href="/join">회원가입</a>
     </div>
-    <div>
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required>
-    </div>
-    <button type="submit">Login</button>
-  </form>
+  </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {

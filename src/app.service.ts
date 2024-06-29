@@ -71,8 +71,8 @@ export class AppService {
         const parsedResult = JSON.parse(result);
         return {
           name: parsedResult.name,
-          cash: parsedResult.amount,
-          point: parsedResult.points
+          amount: parsedResult.amount,
+          points: parsedResult.points
         };
       }
 

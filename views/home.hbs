@@ -255,11 +255,11 @@
         <h2>{{userid}} 님 환영합니다.</h2>
         <form action="/queryAll" method="get">
         <input type="hidden" name="name" value="{{userid}}">
-        <button>조회하기</button>
+        <button type="submit">조회하기</button>
         </form>
         <ul>
-            <li>잔여 캐시 : {{cash}}</li>
-            <li>잔여 포인트 : {{point}}</li>
+            <li>잔여 캐시 : {{amount}}</li>
+            <li>잔여 포인트 : {{points}}</li>
             <h2><a href="#" id="send-points">포인트 보내기</a></h2>
             <h2><a href="#" id="send-cash">캐시 보내기</a></h2>
         </ul>

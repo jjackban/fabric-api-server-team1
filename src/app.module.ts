@@ -7,7 +7,7 @@ import { AppService } from './app.service';
 @Module({
   imports: [TypeOrmModule.forRoot({
     type: 'mysql',
-    host: '172.30.0.30',
+    host: 'localhost',
     port: 3306,
     username: 'root',
     password: 'minsu1234',

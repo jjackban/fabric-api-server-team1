@@ -30,80 +30,25 @@
                     });
                 });
             });
-            // 포인트 보내기 링크 클릭 시 모달 열기
-    sendPointLink.addEventListener('click', function(event) {
-        event.preventDefault();
-        pointModal.style.display = 'block';
-    });
-
-    // 캐시 보내기 링크 클릭 시 모달 열기
-    sendCashLink.addEventListener('click', function(event) {
-        event.preventDefault();
-        cashModal.style.display = 'block';
-    });
-
-    // 모달 닫기 버튼 클릭 시 모달 닫기
-    const closeButtons = document.querySelectorAll('.close');
-    closeButtons.forEach(function(button) {
-        button.addEventListener('click', function() {
-            pointModal.style.display = 'none';
-            cashModal.style.display = 'none';
-        });
-    });
-
-    // 포인트 보내기 폼 제출 시
-    pointForm.addEventListener('submit', async function(event) {
-        event.preventDefault();
-        const formData = new FormData(pointForm);
-        const receiver = formData.get('receiver');
-
-        try {
-            const response = await fetch('/sendPoint', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ receiver })
+            
+            document.getElementById('send-points').addEventListener('click', function () {
+                document.getElementById('points-popup').style.display = 'flex';
             });
-
-            if (response.ok) {
-                alert('포인트를 성공적으로 보냈습니다.');
-                pointModal.style.display = 'none';
-            } else {
-                alert('포인트 보내기 실패');
-            }
-        } catch (error) {
-            console.error('포인트 보내기 오류:', error);
-            alert('포인트 보내기 중 오류가 발생했습니다.');
-        }
-        // 캐시 보내기 폼 제출 시
-            cashForm.addEventListener('submit', async function(event) {
-                event.preventDefault();
-                const formData = new FormData(cashForm);
-                const receiver = formData.get('receiver');
-
-                try {
-                    const response = await fetch('/sendCash', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ receiver })
-                    });
-
-                    if (response.ok) {
-                        alert('캐시를 성공적으로 보냈습니다.');
-                        cashModal.style.display = 'none';
-                    } else {
-                        alert('캐시 보내기 실패');
-                    }
-                } catch (error) {
-                    console.error('캐시 보내기 오류:', error);
-                    alert('캐시 보내기 중 오류가 발생했습니다.');
-                }
+    
+            document.getElementById('send-cash').addEventListener('click', function () {
+                document.getElementById('cash-popup').style.display = 'flex';
             });
-        });
-    });
+    
+            document.getElementById('close-points-popup').addEventListener('click', function () {
+                document.getElementById('points-popup').style.display = 'none';
+            });
+    
+            document.getElementById('close-cash-popup').addEventListener('click', function () {
+                document.getElementById('cash-popup').style.display = 'none';
+            });
+            });
+    
+
     </script>
 </head>
 
@@ -261,35 +206,31 @@
         <ul>
             <li>잔여 캐시 : </li>
             <li>잔여 포인트 : </li>
-            <h2><a href="#" id="sendPoint">포인트 보내기</a></h2>
-            <h2><a href="#" id="sendCash">캐시 보내기</a></h2>
+            <h2><a href="#" id="send-points">포인트 보내기</a></h2>
+            <h2><a href="#" id="send-cash">캐시 보내기</a></h2>
         </ul>
         {{else}}
         <h3>로그인 해주세요</h3>
         {{/if}}
     </div>
 {{!--  포인트 보내기  --}}
-    <div id="pointModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
+    <div class="popup" id="points-popup">
+        <div class="popup-content">
             <h2>포인트 보내기</h2>
-            <form id="pointForm">
-                <label for="receiver">받는 사람:</label>
-                <input type="text" id="receiver" name="receiver" required>
-                <button type="submit">보내기</button>
-            </form>
+            <input type="text" id = "points" placeholder="포인트(숫자)를 입력하세요."><br>
+            <input type="text" id = "userid" placeholder="받을 사용자명을 입력하세요."><br>
+            <button id="send-points">전송</button>
+            <button id="close-points-popup">닫기</button>
         </div>
     </div>
-{{!-- 캐시 보내기 --}}
-    <div id="cashModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
+
+    <div class="popup" id="cash-popup">
+        <div class="popup-content">
             <h2>캐시 보내기</h2>
-            <form id="cashForm">
-                <label for="receiver">받는 사람:</label>
-                <input type="text" id="receiver" name="receiver" required>
-                <button type="submit">보내기</button>
-            </form>
+            <input type="text" id = "points" placeholder="캐시(숫자)를 입력하세요."><br>
+            <input type="text" id = "userid" placeholder="사용자명을 입력하세요."><br>
+            <button id="send-points">전송</button>
+            <button id="close-cash-popup">닫기</button>
         </div>
     </div>
 

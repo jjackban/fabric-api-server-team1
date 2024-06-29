@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { send } from './util/connectFabic';
+import { send } from './util/connectFabric';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Extable } from './entity';
@@ -70,9 +70,9 @@ export class AppService {
         console.log(`Query All Result: ${result}`);
         const parsedResult = JSON.parse(result);
         return {
-          이름: parsedResult.name,
-          캐시: parsedResult.amount,
-          포인트: parsedResult.points
+          name: parsedResult.name,
+          cash: parsedResult.amount,
+          point: parsedResult.points
         };
       }
 

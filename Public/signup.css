@@ -1,0 +1,91 @@
+/* Reset 기본 스타일 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: 'BookkMyungjo-Bd';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/BookkMyungjo-Bd.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+body {
+    font-family: 'BookkMyungjo-Bd', Arial, sans-serif;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.signup-container {
+    
+    max-width: 400px;
+    width: 100%;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.signup-form {
+    text-align: center;
+}
+
+.signup-form h2 {
+    margin-bottom: 30px;
+    color: #333333;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    font-family: 'BookkMyungjo-Bd', Arial, sans-serif;
+    width: 100%;
+    padding: 15px 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+button {
+    font-family: 'BookkMyungjo-Bd', Arial, sans-serif;
+
+    width: 100%;
+    padding: 15px;
+    background-color: #007bff;
+    color: #ffffff;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+    display: block;
+    margin-top: 20px;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #0056b3;
+}

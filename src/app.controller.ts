@@ -20,7 +20,6 @@ export class AppController {
     @Query('userPoint') userPoint: string,
   ): Promise<string> {
     return this.appService.init(user, userVal, userPoint);
-    return this.appService.init(user, userVal, userPoint);
   }
 
   @Get('/invoke')
@@ -55,17 +54,19 @@ async invokePoint(
   }
 
   @Get('/queryAll')
+  @Render('home')
   async queryAll(@Query('name') name: string): Promise<any> {
     return this.appService.queryAll(name);
   }
 
   @Get('/purchaseBook')
-async purchaseBook(
-  @Query('userID') userID: string,
-  @Query('bookID') bookID: string,
-): Promise<string> {
-  return this.appService.purchaseBook(userID, bookID);
-}
+  @Render('home')
+  async purchaseBook(
+    @Query('userID') userID: string,
+    @Query('bookID') bookID: string,
+  ): Promise<string> {
+    return this.appService.purchaseBook(userID, bookID);
+  }
 
 @Get('/chargeMoney')
 async chargeMoney(
@@ -113,4 +114,6 @@ async chargeMoney(
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ message: 'Failed to login' });
     }
   }
+
+
 }

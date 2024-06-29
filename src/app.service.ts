@@ -29,6 +29,8 @@ export class AppService {
 
   async init(user: string, userVal: string, userPoint: string) {
     const args = [user, userVal, userPoint];
+  async init(user: string, userVal: string, userPoint: string) {
+    const args = [user, userVal, userPoint];
     console.log(`Init Args: ${args}`);
     return await send(false, 'init', args);
   }
@@ -37,10 +39,15 @@ export class AppService {
     const args = [sender, receiver, amount];
     console.log(`Invoke Args: ${args}`);
     return await send(false, 'invoke', args);
+  async invoke(sender: string, receiver: string, amount: string) {
+    const args = [sender, receiver, amount];
+    console.log(`Invoke Args: ${args}`);
+    return await send(false, 'invoke', args);
   }
 
   async invokePoint(sender: string, receiver: string, amount: string) {
     const args = [sender, receiver, amount];
+    console.log(`invokePoint Args: ${args}`);
     console.log(`invokePoint Args: ${args}`);
     return await send(false, 'invokePoint', args);
   }

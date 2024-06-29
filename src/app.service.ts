@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { send } from './util/connectFabic';
+import { send } from './util/connectFabric';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Extable } from './entity';
